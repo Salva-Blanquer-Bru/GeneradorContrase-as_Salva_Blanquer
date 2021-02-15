@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class MainG extends JFrame {
-    public JButton BtnGenContraseña;
+    public JButton BtnGenContraseÃ±a;
 
-    public JLabel contraseña;
+    public JLabel contraseÃ±a;
     public JSlider sliderContra;
     private JLabel textoSinOpcion;
     private Color darkGreen = new Color(95, 216, 137);
@@ -31,13 +31,13 @@ public class MainG extends JFrame {
     private Boolean Simbs = false;
 
     public MainG() {
-        super("Generador De Contraseñas");
+        super("Generador De ContraseÃ±as");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
 
         JPanel titulo = new JPanel();
-        titulo.add(new JLabel("GENERADOR DE CONTRASEÑAS"), BorderLayout.CENTER);
+        titulo.add(new JLabel("GENERADOR DE CONTRASEÃ‘AS"), BorderLayout.CENTER);
         ayuda = (new Button("?"));
         ayuda.addActionListener(new Instruciones());
 
@@ -47,13 +47,13 @@ public class MainG extends JFrame {
         general.setBackground(Color.blue);
         this.setResizable(false);
 
-        JPanel VerContraseña = new JPanel();
-        VerContraseña.setLayout(new GridLayout(1, 2, -50, 5));
-        VerContraseña.add(new JLabel("Contraseña:"));
+        JPanel VerContraseÃ±a = new JPanel();
+        VerContraseÃ±a.setLayout(new GridLayout(1, 2, -50, 5));
+        VerContraseÃ±a.add(new JLabel("ContraseÃ±a:"));
 
-        contraseña = (new JLabel(""));
-        contraseña.setBackground(Color.white);
-        VerContraseña.add(contraseña);
+        contraseÃ±a = (new JLabel(""));
+        contraseÃ±a.setBackground(Color.white);
+        VerContraseÃ±a.add(contraseÃ±a);
 
         JPanel Menu = new JPanel();
         Menu.setLayout(new GridLayout(2, 2, 10, 10));
@@ -86,8 +86,8 @@ public class MainG extends JFrame {
         BtnSimbs = new JRadioButton("Simbolos");
         BtnSimbs.addActionListener(new SeleccionaSimbs());
 
-        BtnGenContraseña = new JButton("Generar contraseña");
-        BtnGenContraseña.addActionListener(new genContraseña());
+        BtnGenContraseÃ±a = new JButton("Generar contraseÃ±a");
+        BtnGenContraseÃ±a.addActionListener(new genContraseÃ±a());
 
         add(titulo);
         titulo.add(ayuda);
@@ -95,7 +95,7 @@ public class MainG extends JFrame {
         Menu.add(general);
         add(general);
 
-        general.add(VerContraseña);
+        general.add(VerContraseÃ±a);
 
         JPanel espacioBlanco = new JPanel();
         textoSinOpcion = new JLabel();
@@ -115,7 +115,7 @@ public class MainG extends JFrame {
 
         JPanel generarContraBtn = new JPanel();
         generarContraBtn.setLayout(new FlowLayout());
-        generarContraBtn.add(BtnGenContraseña);
+        generarContraBtn.add(BtnGenContraseÃ±a);
 
         JPanel progressBar = new JPanel();
         progressBar.setLayout(new FlowLayout());
@@ -135,7 +135,7 @@ public class MainG extends JFrame {
 
     }
 
-    public class genContraseña implements ActionListener {
+    public class genContraseÃ±a implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String letras = "";
@@ -143,7 +143,7 @@ public class MainG extends JFrame {
             String letrasMayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             String letrasMinusculas = "abcdefghijklmnopqrstuvwxyz";
             String numeros = "0123456789";
-            String simbolos = "!@#!$%&/()=?¿@#*]}[{?<>)";
+            String simbolos = "!@#!$%&/()=?Â¿@#*]}[{?<>)";
 
             if (Mayus == true) {
                 letras += letrasMayusculas;
@@ -158,9 +158,13 @@ public class MainG extends JFrame {
                 letras += numeros;
             }
 
-            int longitud = (int) sliderContra.getValue();
+            int longitud =  sliderContra.getValue();
             String temporal = "";
 
+            StringSelection stringSelection = new StringSelection(contraseÃ±a.getText());
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+            
             Random random = new Random();
 
             for (int i = 0; i < longitud; i++) {
@@ -173,7 +177,7 @@ public class MainG extends JFrame {
                     textoSinOpcion.setForeground(Color.red);
                 }
             }
-            contraseña.setText(temporal);
+            contraseÃ±a.setText(temporal);
         }
     }
 
