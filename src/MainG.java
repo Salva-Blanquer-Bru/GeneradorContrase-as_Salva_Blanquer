@@ -3,6 +3,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -86,6 +88,7 @@ public class MainG extends JFrame {
         BtnSimbs = new JRadioButton("Simbolos");
         BtnSimbs.addActionListener(new SeleccionaSimbs());
 
+
         BtnGenContraseña = new JButton("Generar contraseña");
         BtnGenContraseña.addActionListener(new genContraseña());
 
@@ -104,10 +107,12 @@ public class MainG extends JFrame {
         general.add(espacioBlanco);
 
         general.add(opciones);
-        opciones.add(BtnMayus);
+
         opciones.add(Btnminus);
-        opciones.add(BtnSimbs);
+        opciones.add(BtnMayus);
         opciones.add(BtnNums);
+        opciones.add(BtnSimbs);
+
 
         general.add(sliderContra);
 
@@ -158,8 +163,12 @@ public class MainG extends JFrame {
                 letras += numeros;
             }
 
-            int longitud = (int) sliderContra.getValue();
+            int longitud = sliderContra.getValue();
             String temporal = "";
+
+            StringSelection stringSelection = new StringSelection(contraseña.getText());
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
 
             Random random = new Random();
 
@@ -175,6 +184,7 @@ public class MainG extends JFrame {
             }
             contraseña.setText(temporal);
         }
+
     }
 
     private class SeleccionaMayus implements ActionListener {
@@ -251,27 +261,27 @@ public class MainG extends JFrame {
         @Override
         public void stateChanged(ChangeEvent e) {
             int Cantidad = Integer.parseInt(numeroCaracter.getText());
-            if (Cantidad < 5) {
+            if (Cantidad < 5 && BtnMayus.isSelected() == false && Btnminus.isSelected() == true && BtnNums.isSelected() == false && BtnSimbs.isSelected() == false) {
 
                 pBar.setForeground(Color.red);
                 pBar.setBorder(new TitledBorder("Insegura"));
 
 
             }
-            if (Cantidad >= 5 && Cantidad < 10) {
+            if (Cantidad >= 5 && Cantidad < 10 && BtnMayus.isSelected() == true && Btnminus.isSelected() == true && BtnNums.isSelected() == false && BtnSimbs.isSelected() == false) {
 
                 pBar.setForeground(Color.orange);
                 pBar.setBorder(new TitledBorder("Poco segura"));
             }
 
-            if (Cantidad >= 10 && Cantidad < 20) {
+            if (Cantidad >= 10 && Cantidad < 20 && BtnMayus.isSelected() == true && Btnminus.isSelected() == true && BtnNums.isSelected() == true && BtnSimbs.isSelected() == false) {
 
                 pBar.setForeground(darkGreen);
                 pBar.setBorder(new TitledBorder("Segura"));
             }
 
 
-            if (Cantidad == 20) {
+            if (Cantidad == 20 && BtnMayus.isSelected() == true && Btnminus.isSelected() == true && BtnNums.isSelected() == true && BtnSimbs.isSelected() == true) {
 
                 pBar.setForeground(Color.green);
                 pBar.setBorder(new TitledBorder("Muy segura"));
